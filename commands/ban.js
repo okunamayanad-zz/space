@@ -13,17 +13,17 @@ module.exports = {
                     .require(true))
         .addStringOption(option =>
             option
-                .setName('reason')
+                .setName('sebep')
                 .setDescription('Ban sebebini girin.')
                 .require(false)),
     async execute(interaction) {
         if (!interaction.message.member.hasPermission('BAN_MEMBERS')) return interaction.reply({ content: 'Bu komutu kullanmak için yetkin yok.', empheral: true });
         if (!interaction.message.guild.me.hasPermission('BAN_MEMBERS')) return interaction.reply({ content: 'Hata! Bu komutu kullanmak için botun "BAN" yetkisi olması gerekiyor.', empheral: t });
 
-        const reason = interaction.getOption('reason');
-        if (isNaN(reason)) reason = 'Sebep girilmedi';
-        reason = reason.replace(/\n/g, ' ');
-        reason = `${reason} | ${interaction.message.author.tag}`;
+        const sebep = interaction.getOption('sebep');
+        if (isNaN(sebep)) sebep = 'Sebep girilmedi';
+        sebep = sebep.replace(/\n/g, ' ');
+        sebep = `${sebep} | ${interaction.message.author.tag}`;
         const user = interaction.options.getUser('target');
         if (!user) return interaction.reply('Kişi seçmedin.');
         if (user.id === interaction.message.author.id) return interaction.reply({ content: 'Kendini banlayamazsın.', empheral: true });
@@ -43,7 +43,7 @@ module.exports = {
         if (user.roles.highest.position >= interaction.message.member.roles.highest.position) return interaction.reply({ content: 'Kişi yetkiliyi yada daha yüksek bir rolü taşıyamazsın.', empheral: true });
         // Ban the user
         await interaction.message.guild.members.ban(user, {
-            reason: reason
+            reason: sebep
         });
         // Make the confirmation embed
         const embed = interaction.client.embeds.createEmbed()
