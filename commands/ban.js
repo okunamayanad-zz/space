@@ -8,7 +8,7 @@ module.exports = {
         .addUserOption(
             option =>
                 option
-                    .setName('target')
+                    .setName('hedef')
                     .setDescription('Banlanacak kişiyi seçin.')
                     .require(true))
         .addStringOption(option =>
