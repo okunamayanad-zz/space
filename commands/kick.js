@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const {owners}=require('./../config.json');
+const { owners } = require('./../config.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -28,21 +28,21 @@ module.exports = {
 
 		// check if the target is higher than the author
 		if (user.roles.highest.position >= interaction.message.member.roles.highest.position) return interaction.reply({ conent: 'Hata! Bu kişi senden yüksek bir role sahip.', empheral: true });
-        owners.forEach(owner => {
-            if (user.id === owner) return interaction.reply({ content: 'Sahibimi banlayamazın.', empheral: true });
-        });
+		owners.forEach(owner => {
+			if (user.id === owner) return interaction.reply({ content: 'Sahibimi banlayamazın.', empheral: true });
+		});
 		const sebep = interaction.options.getString('sebep');
 		if (isNaN(sebep)) sebep = 'Sebep belirtilmedi.';
 		sebep = sebep.replace(/\n/g, ' ');
 		sebep = `${sebep} | ${interaction.message.author.tag}`;
 
-        // Make the confirmation embed
-        const embed = interaction.client.embeds.createEmbed()
-            .setTitle('Ban')
-            .setDescription(`${user.tag} banlandı.`)
-            .setColor(interaction.client.colors.red)
-            .setFooter(`${interaction.message.author.tag} tarafından banlandı.`);
-        // Send the confirmation embed
-        interaction.reply({ embed });
+		// Make the confirmation embed
+		const embed = interaction.client.embeds.createEmbed()
+			.setTitle('Ban')
+			.setDescription(`${user.tag} banlandı.`)
+			.setColor(interaction.client.colors.red)
+			.setFooter(`${interaction.message.author.tag} tarafından banlandı.`);
+		// Send the confirmation embed
+		interaction.reply({ embed });
 	},
 };

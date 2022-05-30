@@ -6,8 +6,8 @@ const { token } = require('./config.json');
 // 7/24
 const http = require("http");
 const server = http.createServer((req, res) => {
-  res.writeHead(200);
-  res.end("space");
+	res.writeHead(200);
+	res.end("space");
 });
 server.listen(3000);
 // 7/24 END
