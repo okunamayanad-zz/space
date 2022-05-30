@@ -24,7 +24,7 @@ module.exports = {
         if (isNaN(sebep)) sebep = 'Sebep girilmedi';
         sebep = sebep.replace(/\n/g, ' ');
         sebep = `${sebep} | ${interaction.message.author.tag}`;
-        const user = interaction.options.getUser('target');
+        const user = interaction.options.getUser('hedef');
         if (!user) return interaction.reply('Kişi seçmedin.');
         if (user.id === interaction.message.author.id) return interaction.reply({ content: 'Kendini banlayamazsın.', empheral: true });
         if (user.id === interaction.client.user.id) return interaction.reply({ content: 'Beni banlayamazsın.', empheral: true });
