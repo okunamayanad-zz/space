@@ -4,7 +4,7 @@ const { owners } = require('./config.json');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('ban')
-        .setDescription('Kişi banlayın.')
+        .setDescription('Kişi banlar.')
         .addUserOption(
             option =>
                 option
