@@ -21,6 +21,9 @@ module.exports = {
         if (!interaction.message.guild.me.hasPermission('BAN_MEMBERS')) return interaction.reply({ content: 'Hata! Bu komutu kullanmak için botun "BAN" yetkisi olması gerekiyor.', empheral: t });
 
         const reason = interaction.getOption('reason');
+        if (isNaN(reason)) reason = 'Sebep girilmedi';
+        reason = reason.replace(/\n/g, ' ');
+        reason = `${reason} | ${interaction.message.author.tag}`;
         const user = interaction.options.getUser('target');
         if (!user) return interaction.reply('Kişi seçmedin.');
         if (user.id === interaction.message.author.id) return interaction.reply({ content: 'Kendini banlayamazsın.', empheral: true });
@@ -42,5 +45,13 @@ module.exports = {
         await interaction.message.guild.members.ban(user, {
             reason: reason
         });
+        // Make the confirmation embed
+        const embed = interaction.client.embeds.createEmbed()
+            .setTitle('Ban')
+            .setDescription(`${user.tag} banlandı.`)
+            .setColor(interaction.client.colors.red)
+            .setFooter(`${interaction.message.author.tag} tarafından banlandı.`);
+        // Send the confirmation embed
+        interaction.reply({ embed });
     },
 };
