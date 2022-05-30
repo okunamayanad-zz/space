@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { owners } = require('./config.json');
+const { owners } = require('./../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,12 +10,12 @@ module.exports = {
                 option
                     .setName('hedef')
                     .setDescription('Banlanacak kişiyi seçin.')
-                    .require(true))
+                    .setRequired(true))
         .addStringOption(option =>
             option
                 .setName('sebep')
                 .setDescription('Ban sebebini girin.')
-                .require(false)),
+                .setRequired(false)),
     async execute(interaction) {
         if (!interaction.message.member.hasPermission('BAN_MEMBERS')) return interaction.reply({ content: 'Bu komutu kullanmak için yetkin yok.', empheral: true });
         if (!interaction.message.guild.me.hasPermission('BAN_MEMBERS')) return interaction.reply({ content: 'Hata! Bu komutu kullanmak için botun "BAN" yetkisi olması gerekiyor.', empheral: t });
