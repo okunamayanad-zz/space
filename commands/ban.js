@@ -23,11 +23,11 @@ module.exports = {
         const reason = interaction.getOption('reason');
         const user = interaction.options.getUser('target');
         if (!user) return interaction.reply('Kişi seçmedin.');
-        if (user.id === interaction.message.author.id) return interaction.reply('Kendini banlayamazsın.');
-        if (user.id === interaction.client.user.id) return interaction.reply('Beni banlayamazsın.');
+        if (user.id === interaction.message.author.id) return interaction.reply({ content: 'Kendini banlayamazsın.', empheral: true });
+        if (user.id === interaction.client.user.id) return interaction.reply({ content: 'Beni banlayamazsın.', empheral: true });
 
         owners.forEach(owner => {
-            if (user.id === owner) return interaction.reply('Sahibimi banlayamazın.');
+            if (user.id === owner) return interaction.reply({ content: 'Sahibimi banlayamazın.', empheral: true });
         });
 
         // Check if the user is already banned
@@ -35,9 +35,9 @@ module.exports = {
             guild: interaction.message.guild.id,
             user: user.id
         });
-        if (bans.length > 0) return interaction.reply('Kişi zaten banlı.');
+        if (bans.length > 0) return interaction.reply({ content: 'Kişi zaten banlı.', empheral: true });
         // Check if the user has a higher role than the bot
-        if (user.roles.highest.position >= interaction.message.member.roles.highest.position) return interaction.reply('Kişi yetkiliyi yada daha yüksek bir rolü taşıyamazsın.');
+        if (user.roles.highest.position >= interaction.message.member.roles.highest.position) return interaction.reply({ content: 'Kişi yetkiliyi yada daha yüksek bir rolü taşıyamazsın.', empheral: true });
         // Ban the user
         await interaction.message.guild.members.ban(user, {
             reason: reason
