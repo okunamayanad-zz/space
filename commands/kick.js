@@ -7,6 +7,8 @@ module.exports = {
 		.addUserOption(option => option.setName('target').setDescription('The member to kick')),
 	async execute(interaction) {
 		const user = interaction.options.getUser('target');
-		return interaction.reply({ content: `You wanted to kick: ${user.username}`, ephemeral: true });
+
+		if (!interaction.message.member.hasPermission('KICK_MEMBERS')) return interaction.reply({ conent: 'Bu komutu kullanmak için yetkin yok.', empheral: true });
+		if (!interaction.message.guild.me.hasPermission('KICK_MEMBERS')) return interaction.reply({ conent: 'Hata! Bu komutu kullanmak için botun "KICK" yetkisi olması gerekiyor.', empheral: true });
 	},
 };
