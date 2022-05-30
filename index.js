@@ -26,11 +26,13 @@ for (const file of commandFiles) {
 
 // When the client is ready, run this code
 client.once('ready', () => {
-	console.log('Ready!');
+	console.log('Ready to fight!');
 	console.log('Bot is online!');
+	console.log('---------------- STATS ----------------');
 	console.log('Bot is connected to ' + client.guilds.cache.size + ' servers!');
 	console.log('Bot is connected to ' + client.users.cache.size + ' users!');
 	console.log('Bot is connected to ' + client.channels.cache.size + ' channels!');
+	console.log('---------------- STATS ----------------');
 });
 
 client.on('interactionCreate', async interaction => {
