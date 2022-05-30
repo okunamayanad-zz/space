@@ -17,6 +17,9 @@ module.exports = {
                 .setDescription('Ban sebebini girin.')
                 .require(false)),
     async execute(interaction) {
+        if (!interaction.message.member.hasPermission('BAN_MEMBERS')) return interaction.reply({ content: 'Bu komutu kullanmak için yetkin yok.', empheral: true });
+        if (!interaction.message.guild.me.hasPermission('BAN_MEMBERS')) return interaction.reply({ content: 'Hata! Bu komutu kullanmak için botun "BAN" yetkisi olması gerekiyor.', empheral: t });
+
         const reason = interaction.getOption('reason');
         const user = interaction.options.getUser('target');
         if (!user) return interaction.reply('Kişi seçmedin.');
@@ -26,10 +29,6 @@ module.exports = {
         owners.forEach(owner => {
             if (user.id === owner) return interaction.reply('Sahibimi banlayamazın.');
         });
-
-        // check if the user has the permissions to use this command
-        if (!interaction.message.member.hasPermission('BAN_MEMBERS')) return interaction.reply('Bu komutu kullanmak için yetkin yok.');
-        if (!interaction.message.guild.me.hasPermission('BAN_MEMBERS')) return interaction.reply('Hata! Bu komutu kullanmak için botun "BAN" yetkisi olması gerekiyor.');
 
         // Check if the user is already banned
         const bans = await interaction.client.database.bans.find({
