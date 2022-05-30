@@ -3,12 +3,14 @@ const path = require('node:path');
 const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config.json');
 
+// 7/24
 const http = require("http");
 const server = http.createServer((req, res) => {
   res.writeHead(200);
   res.end("space");
 });
 server.listen(3000);
+// 7/24 END
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
@@ -22,8 +24,13 @@ for (const file of commandFiles) {
 	client.commands.set(command.data.name, command);
 }
 
+// When the client is ready, run this code
 client.once('ready', () => {
 	console.log('Ready!');
+	console.log('Bot is online!');
+	console.log('Bot is connected to ' + client.guilds.cache.size + ' servers!');
+	console.log('Bot is connected to ' + client.users.cache.size + ' users!');
+	console.log('Bot is connected to ' + client.channels.cache.size + ' channels!');
 });
 
 client.on('interactionCreate', async interaction => {
